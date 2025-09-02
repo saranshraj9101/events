@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import api from '../services/api';
 import {
   Calendar,
   Clock,
@@ -38,7 +38,7 @@ const Events = () => {
         ...(filters.featured && { featured: 'true' })
       });
 
-      const response = await axios.get(`/api/events?${params}`);
+      const response = await api.get(`/api/events?${params}`);
       setEvents(response.data.events);
       setTotalPages(response.data.totalPages);
     } catch (error) {

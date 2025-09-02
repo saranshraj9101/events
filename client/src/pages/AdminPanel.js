@@ -12,7 +12,7 @@ import {
   Check,
   X
 } from 'lucide-react';
-import axios from 'axios';
+import api from '../services/api';
 import { format } from 'date-fns';
 
 // Admin Dashboard Component
@@ -32,8 +32,8 @@ const AdminDashboard = () => {
   const fetchStats = async () => {
     try {
       const [eventsResponse, usersResponse] = await Promise.all([
-        axios.get('/api/events/admin/all?limit=100'),
-        axios.get('/api/users?limit=100')
+        api.get('/api/events/admin/all?limit=100'),
+        api.get('/api/users?limit=100')
       ]);
 
       const events = eventsResponse.data.events;
@@ -180,7 +180,7 @@ const EventsManagement = () => {
 
   const fetchEvents = async () => {
     try {
-      const response = await axios.get('/api/events/admin/all');
+      const response = await api.get('/api/events/admin/all');
       setEvents(response.data.events);
     } catch (error) {
       console.error('Error fetching events:', error);
@@ -191,7 +191,7 @@ const EventsManagement = () => {
 
   const handleApproveEvent = async (eventId) => {
     try {
-      await axios.post(`/api/events/${eventId}/approve`);
+      await api.post(`/api/events/${eventId}/approve`);
       fetchEvents();
     } catch (error) {
       console.error('Error approving event:', error);
@@ -201,7 +201,7 @@ const EventsManagement = () => {
   const handleDeleteEvent = async (eventId) => {
     if (window.confirm('Are you sure you want to delete this event?')) {
       try {
-        await axios.delete(`/api/events/${eventId}`);
+        await api.delete(`/api/events/${eventId}`);
         fetchEvents();
       } catch (error) {
         console.error('Error deleting event:', error);
@@ -311,7 +311,7 @@ const UsersManagement = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('/api/users');
+      const response = await api.get('/api/users');
       setUsers(response.data.users);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -322,7 +322,7 @@ const UsersManagement = () => {
 
   const handleToggleUserStatus = async (userId) => {
     try {
-      await axios.post(`/api/users/${userId}/toggle-status`);
+      await api.post(`/api/users/${userId}/toggle-status`);
       fetchUsers();
     } catch (error) {
       console.error('Error toggling user status:', error);

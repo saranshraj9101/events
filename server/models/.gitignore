@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+client/node_modules/
+server/node_modules/
+
+# build outputs
+build/
+client/build/
+server/build/
+
+# caches (yehi sab heavy hote hain)
+**/.cache/
+client/node_modules/.cache/
+
+# env files (kabhi push na karein)
+.env
+.env.local
+config.env
+server/config.env
+client/.env

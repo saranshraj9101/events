@@ -1,0 +1,29 @@
+{
+  "name": "bennett-university-events",
+  "version": "1.0.0",
+  "description": "Event Management System for Bennett University",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "install-all": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "keywords": [
+    "events",
+    "university",
+    "management",
+    "react",
+    "nodejs",
+    "mongodb"
+  ],
+  "author": "Bennett University",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "dependencies": {
+    "all": "^0.0.0"
+  }
+}

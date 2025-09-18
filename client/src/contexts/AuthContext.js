@@ -43,17 +43,17 @@ export const AuthProvider = ({ children }) => {
   // Check if user is logged in on app start
   useEffect(() => {
     const checkAuth = async () => {
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("token");
       if (token) {
         try {
-          const response = await api.get('/api/auth/me');
-          dispatch({ type: 'LOGIN_SUCCESS', payload: response.data });
+          const response = await api.get("/auth/me");
+          dispatch({ type: "LOGIN_SUCCESS", payload: response.data });
         } catch (error) {
-          localStorage.removeItem('token');
-          dispatch({ type: 'LOGOUT' });
+          localStorage.removeItem("token");
+          dispatch({ type: "LOGOUT" });
         }
       } else {
-        dispatch({ type: 'SET_LOADING', payload: false });
+        dispatch({ type: "SET_LOADING", payload: false });
       }
     };
 
@@ -61,23 +61,27 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    dispatch({ type: 'LOGIN_START' });
+    dispatch({ type: "LOGIN_START" });
     try {
-      const response = await api.post('/api/auth/login', { email, password });
+      const response = await api.post("/api/auth/login", { email, password });
       const { token, user } = response.data;
-      
-      localStorage.setItem('token', token);
-      
-      dispatch({ type: 'LOGIN_SUCCESS', payload: user });
-      toast.success('Login successful!');
+
+      console.log(token, "token"); // ✅ now token is available
+      console.log(user, "user"); // ✅ you can also log user if needed
+
+      localStorage.setItem("token", token); // only store token
+
+      dispatch({ type: "LOGIN_SUCCESS", payload: user });
+      toast.success("Login successful!");
       return { success: true };
     } catch (error) {
-      const message = error.response?.data?.message || 'Login failed';
-      dispatch({ type: 'LOGIN_FAILURE', payload: message });
+      const message = error.response?.data?.message || "Login failed";
+      dispatch({ type: "LOGIN_FAILURE", payload: message });
       toast.error(message);
       return { success: false, error: message };
     }
   };
+
 
   const register = async (userData) => {
     dispatch({ type: 'LOGIN_START' });
